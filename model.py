@@ -2,6 +2,9 @@ import torch
 import torch.nn as nn
 import torchvision.transforms.functional as TF
 
+# UNET model
+
+# Conv layers
 class DoubleConv(nn.Module):
     def __init__(self, in_channels, out_channels):
         super(DoubleConv, self).__init__()
@@ -17,6 +20,7 @@ class DoubleConv(nn.Module):
     def forward(self, x):
         return self.conv(x)
 
+# UNET
 class UNET(nn.Module):
     def __init__(
             self, in_channels=3, out_channels=1, features=[64, 128, 256, 512],
@@ -66,10 +70,14 @@ class UNET(nn.Module):
 
         return self.final_conv(x)
 
+
+# TEST
 def test():
     x = torch.randn((3, 1, 161, 161))
     model = UNET(in_channels=1, out_channels=1)
     preds = model(x)
+    print(preds.shape)
+    print(x.shape)
     assert preds.shape == x.shape
 
 if __name__ == "__main__":
